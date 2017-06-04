@@ -1,0 +1,37 @@
+<div *ngIf="!isFormSubmited;then content else other_content"></div>
+<ng-template #content>
+<div *ngIf="selectedReportTemplate" class="container">
+  <form [formGroup]="reportTemplateForm" autocomplete="off" novalidate>
+    <div class="form-group">
+      <label for="reportName" class="label label-default">Report Name</label>
+      <input type="text" class="form-control" id="reportName" formControlName="reportName" placeholder="Enter report name" required />
+
+      <div *ngIf="formErrors.reportName" class="alert alert-danger">
+        {{ formErrors.reportName }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="reportDescription">Report description</label>
+      <textarea class="form-control" id="reportDescription" formControlName="reportDescription" rows="5" placeholder="Enter report description" requierd></textarea>
+
+      <div *ngIf="formErrors.reportDescription" class="alert alert-danger">
+        {{ formErrors.reportDescription }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="sqlDescription">Sql</label>
+      <textarea class="form-control" id="sqlDescription" formControlName="sqlDescription" rows="15" placeholder="Enter sql"></textarea>
+      <div *ngIf="formErrors.sqlDescription" class="alert alert-danger">
+        {{ formErrors.sqlDescription }}
+      </div>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-default btn-primary" [disabled]="reportTemplateForm.invalid" (click)="submit()">Submit</button>
+    </div>
+  </form>
+</div>
+</ng-template>
+<ng-template #other_content>
+  <div class="container alert alert-success" role="alert">This report template was saved</div>
+</ng-template>
